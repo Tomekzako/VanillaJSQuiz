@@ -54,3 +54,39 @@ h1 {
         font-size: 3rem;
     }
 }
+
+button {
+    padding: 5px 15px;
+    border-radius: 4px;
+    background: rgb(66, 184, 221);
+    float: right;
+    &:hover {
+        span {
+            padding-right: 25px;
+            &:after {
+                opacity: 1;
+                right: 0;
+            }
+        }
+    }
+    span {
+        cursor: pointer;
+        display: inline-block;
+        position: relative;
+        transition: 0.5s;
+        &:after {
+            content: '\00bb';
+            position: absolute;
+            opacity: 0;
+            top: 0;
+            right: -20px;
+            transition: 0.5s;
+        }
+    }
+}
+
+a {
+    color: white;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+}
