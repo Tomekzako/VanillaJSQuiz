@@ -1,14 +1,26 @@
 document.addEventListener('DOMContentLoaded', function () {
     const url = "https://cdn.rawgit.com/kdzwinel/cd08d08002995675f10d065985257416/raw/811ad96a0567648ff858b4f14d0096ba241f28ef/quiz-data.json";
     const quiz = document.querySelector('.quiz');
-    const button = document.querySelectorAll('button');
+    const btns = document.querySelectorAll('button');
+    const next = document.querySelector('.next');
+    const prev = document.querySelector('.prev');
+    const intro = document.querySelector('.intro');
+    const main = document.querySelector('.main');
+    const introUp = document.querySelector('.introUp');
+    let questionCounter = 0;
 
-    for (var i = 0; i < button.length; i++) {
-        button[i].addEventListener('mouseenter', function () {
+
+    introUp.addEventListener('click', function () {
+        intro.style.display = 'none';
+        main.style.display = 'block';
+    })
+
+    for (var i = 0; i < btns.length; i++) {
+        btns[i].addEventListener('mouseenter', function () {
             this.classList.add('active');
         });
 
-        button[i].addEventListener('mouseleave', function () {
+        btns[i].addEventListener('mouseleave', function () {
             this.classList.remove('active');
         });
     }
@@ -17,6 +29,11 @@ document.addEventListener('DOMContentLoaded', function () {
     fetch(url)
         .then((resp) => resp.json())
         .then(function (data) {
+
+            next.addEventListener('click', function () {
+                questionCounter++;
+                createQuestion(questionCounter);
+            });
 
             function createQuestion(index) {
                 const questionElement = document.createElement('div');
