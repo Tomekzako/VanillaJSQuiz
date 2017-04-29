@@ -1,8 +1,17 @@
 document.addEventListener('DOMContentLoaded', function () {
     const url = "https://cdn.rawgit.com/kdzwinel/cd08d08002995675f10d065985257416/raw/811ad96a0567648ff858b4f14d0096ba241f28ef/quiz-data.json";
-    const div = document.querySelector('#result');
     const quiz = document.querySelector('.quiz');
+    const button = document.querySelectorAll('button');
 
+    for (var i = 0; i < button.length; i++) {
+        button[i].addEventListener('mouseenter', function () {
+            this.classList.add('active');
+        });
+
+        button[i].addEventListener('mouseleave', function () {
+            this.classList.remove('active');
+        });
+    }
 
 
     fetch(url)
@@ -50,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
 
-            createQuestion(3);
+            createQuestion(0);
 
 
         })
