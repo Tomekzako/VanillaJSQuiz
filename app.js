@@ -1,18 +1,19 @@
 document.addEventListener('DOMContentLoaded', function () {
     const url = "https://cdn.rawgit.com/kdzwinel/cd08d08002995675f10d065985257416/raw/811ad96a0567648ff858b4f14d0096ba241f28ef/quiz-data.json";
     const quiz = document.querySelector('.quiz');
+    const container = document.querySelector('.container');
     const btns = document.querySelectorAll('button');
     const next = document.querySelector('.next');
     const prev = document.querySelector('.prev');
     const intro = document.querySelector('.intro');
     const main = document.querySelector('.main');
-    const introUp = document.querySelector('.introUp');
-    let questionCounter = 0;
+    let questionCounter = 1;
 
 
-    introUp.addEventListener('click', function () {
+    intro.addEventListener('click', function () {
         intro.style.display = 'none';
-        main.style.display = 'block';
+        fadeIn();
+
     })
 
     for (var i = 0; i < btns.length; i++) {
@@ -25,6 +26,30 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    function fadeIn() {
+        const fadeEl = document.createElement('div');
+        fadeEl.style.display = 'flex';
+        fadeEl.style.opacity = 0;
+        fadeEl.classList.add('fullCount');
+        fadeEl.innerHTML = '<h1>Question: ' + questionCounter + '</h1>';
+
+
+        var tick = function () {
+            fadeEl.style.opacity = +fadeEl.style.opacity + 0.01;
+
+
+            if (+fadeEl.style.opacity < 1) {
+                (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16)
+            } else {
+                fadeEl.style.display = 'none';
+                main.style.display = 'block';
+            }
+        };
+        container.appendChild(fadeEl);
+        tick();
+    }
+
+
 
     fetch(url)
         .then((resp) => resp.json())
@@ -32,6 +57,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
             next.addEventListener('click', function () {
                 questionCounter++;
+                main.style.display = 'none';
+                fadeIn();
                 createQuestion(questionCounter);
             });
 

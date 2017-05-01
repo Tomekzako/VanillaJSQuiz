@@ -26,26 +26,18 @@ $breakpoint: 420px;
     }
 }
 
-$columnsCount: 12;
-@for $i from 1 through $columnsCount {
-    .col-#{$i} {
-        width: (100%/$columnsCount)*$i;
-    }
-}
-
-[class*='col-'] {
-    float: left;
-    min-height: 1px;
-    @media (max-width: $breakpoint) {
-        float: none;
-        width: 100%;
-    }
+h1 {
+    font-family: 'Revalia', cursive;
+    color: rgb(255, 255, 255);
+    text-align: center;
 }
 
 body {
     background-image: url(../images/2.jpg);
     background-repeat: no-repeat;
     background-size: cover;
+    height: 100vh;
+    width: 100vw;
 }
 
 .intro {
@@ -53,8 +45,9 @@ body {
     align-items: center;
     justify-content: center;
     height: 500px;
+    cursor: pointer;
     &:hover {
-        background-color: rgba(0, 0, 0, 0.5);
+        background-color: rgba(0, 0, 0, 1);
     }
     @media (min-width: $breakpoint) {
         height: 500px;
@@ -65,21 +58,9 @@ body {
             font-size: 5rem;
         }
     }
-    .introUp {
-        position: absolute;
-        bottom: 70px;
-    }
-}
-
-h1 {
-    font-family: 'Revalia', cursive;
-    font-size: 2rem;
-    color: rgb(255, 255, 255);
-    text-align: center;
-    margin-top: 10px;
-    @media (min-width: $breakpoint) {
-        margin-top: 30px;
-        font-size: 3rem;
+    #fade{
+        display: none;
+        
     }
 }
 
@@ -137,3 +118,10 @@ ul {
         width: 50%;
     }
 }
+
+
+.fullCount {
+        @extend .intro;
+        background: rgb(0, 0, 0);
+        }
+    
