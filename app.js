@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const btns = document.querySelectorAll('button');
     const next = document.querySelector('.next');
     const prev = document.querySelector('.prev');
+    const start = document.querySelector('.start');
     const intro = document.querySelector('.intro');
     const main = document.querySelector('.main');
     let questionCounter = 0;
@@ -13,10 +14,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     intro.addEventListener('click', function () {
         intro.style.display = 'none';
+        prev.style.display = 'none';
+        start.style.display = 'none';
         fadeIn();
 
-    })
-
+    });
+    
     for (var i = 0; i < btns.length; i++) {
         btns[i].addEventListener('mouseenter', function () {
             this.classList.add('active');
@@ -50,38 +53,61 @@ document.addEventListener('DOMContentLoaded', function () {
         tick();
     }
 
-
-
     fetch(url)
         .then((resp) => resp.json())
         .then(function (data) {
 
-            next.addEventListener('click', function (event) {
-                event.preventDefault();
+            next.addEventListener('click', function () {
                 userChoice();
-                if (isNaN(select[questionCounter])) {
-                    alert('YOU HAVE TO MAKE A SELECTION!!!');
+                if (select[questionCounter].value =="") {
+                    alert('YOU HAVE TO CHOOSE THE ANSWER!!!');
                 } else {
+                    if(questionCounter+4 < data.questions.length){
                     console.log(select);
+                    console.log(questionCounter);
                     questionCounter++;
                     main.style.display = 'none';
                     fadeIn();
                     createQuestion(questionCounter);
                     createNext();
+                    } else{
+                        finalSite();
+                    }
 
                 }
             });
+        
+        
+            prev.addEventListener('click', function(){
+                questionCounter--;
+                createQuestion(questionCounter);
+                createNext();
+                
+            });
+        
+            
+            start.addEventListener('click', function(){
+                main.style.display = 'none';
+                questionCounter = 0;
+                fadeIn();
+                quiz.style.display = 'block';
+                createQuestion(questionCounter);
+                createNext();
+                prev.style.display = 'none';
+                start.style.display = 'none';
+                next.style.display = 'block';
+                main.lastChild.style.display = 'none';
+                
+                
+            })
 
             function createQuestion(index) {
                 const questionElement = document.createElement('div');
                 questionElement.id = 'exercise';
                 quiz.appendChild(questionElement);
 
-                let header = document.createElement('h2');
-                header.innerText = 'Question ' + (index + 1) + ' :';
-                questionElement.appendChild(header);
 
-                let task = document.createElement('p');
+                let task = document.createElement('h2');
                 task.innerText = data.questions[index].question;
                 questionElement.appendChild(task);
 
@@ -94,7 +120,10 @@ document.addEventListener('DOMContentLoaded', function () {
             function createNext() {
                 let exercise = document.querySelector('#exercise');
                 exercise.parentNode.removeChild(exercise);
+                prev.style.display = 'block';
+
             }
+
 
             function createAnswer(index) {
                 let ul = document.createElement('ul');
@@ -108,9 +137,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     input = document.createElement('input');
                     input.type = "checkbox";
                     input.name = "answer";
-                    input.value = i;
+                    input.data= data.questions[index].answers[i].correct;
                     options.innerText = data.questions[index].answers[i].answer;
-                    options.appendChild(input);
+                    li.appendChild(input);
                     li.appendChild(options);
                     ul.appendChild(li);
                 }
@@ -121,9 +150,27 @@ document.addEventListener('DOMContentLoaded', function () {
                 let allOptions = document.getElementsByName('answer');
                 for (var i = 0; i < allOptions.length; i++) {
                     if (allOptions[i].checked) {
-                        select[questionCounter] = +allOptions[i].value;
+                        select[questionCounter] = +allOptions[i].data;
+                        
                     }
                 }
+            }
+            function finalSite(){
+                let result = document.createElement('h2');
+                quiz.style.display = 'none';
+                prev.style.display = 'none';
+                next.style.display = 'none';
+                start.style.display = 'block';
+                
+                let score = 0;
+                 for (var i = 0; i < select.length; i++) {
+                    
+                    if (select[i] == 1) {
+                     score++;
+                    }
+                }
+                result.innerText = 'Your score is '+score+' on'  +select.length;
+                main.appendChild(result);
             }
 
             createQuestion(0);
