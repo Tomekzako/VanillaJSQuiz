@@ -58,9 +58,8 @@ body {
             font-size: 5rem;
         }
     }
-    #fade{
+    #fade {
         display: none;
-        
     }
 }
 
@@ -119,9 +118,7 @@ ul {
     }
 }
 
-
 .fullCount {
-        @extend .intro;
-        background: rgb(0, 0, 0);
-        }
-    
+    @extend .intro;
+    background: rgb(0, 0, 0);
+}

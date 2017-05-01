@@ -7,7 +7,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const prev = document.querySelector('.prev');
     const intro = document.querySelector('.intro');
     const main = document.querySelector('.main');
-    let questionCounter = 1;
+    let questionCounter = 0;
+    let select = [];
 
 
     intro.addEventListener('click', function () {
@@ -31,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
         fadeEl.style.display = 'flex';
         fadeEl.style.opacity = 0;
         fadeEl.classList.add('fullCount');
-        fadeEl.innerHTML = '<h1>Question: ' + questionCounter + '</h1>';
+        fadeEl.innerHTML = '<h1>Question: ' + (questionCounter + 1) + '</h1>';
 
 
         var tick = function () {
@@ -55,11 +56,20 @@ document.addEventListener('DOMContentLoaded', function () {
         .then((resp) => resp.json())
         .then(function (data) {
 
-            next.addEventListener('click', function () {
-                questionCounter++;
-                main.style.display = 'none';
-                fadeIn();
-                createQuestion(questionCounter);
+            next.addEventListener('click', function (event) {
+                event.preventDefault();
+                userChoice();
+                if (isNaN(select[questionCounter])) {
+                    alert('YOU HAVE TO MAKE A SELECTION!!!');
+                } else {
+                    console.log(select);
+                    questionCounter++;
+                    main.style.display = 'none';
+                    fadeIn();
+                    createQuestion(questionCounter);
+                    createNext();
+
+                }
             });
 
             function createQuestion(index) {
@@ -79,6 +89,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 questionElement.appendChild(answ);
 
                 return questionElement;
+            }
+
+            function createNext() {
+                let exercise = document.querySelector('#exercise');
+                exercise.parentNode.removeChild(exercise);
             }
 
             function createAnswer(index) {
@@ -102,10 +117,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 return ul;
             }
 
+            function userChoice() {
+                let allOptions = document.getElementsByName('answer');
+                for (var i = 0; i < allOptions.length; i++) {
+                    if (allOptions[i].checked) {
+                        select[questionCounter] = +allOptions[i].value;
+                    }
+                }
+            }
 
             createQuestion(0);
-
-
         })
         .catch(function () {
             console.log('error');
