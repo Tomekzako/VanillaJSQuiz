@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 start.style.display = 'none';
                 fadeIn();
                 timer();
-                count = 10;
+                count = 9;
             });
 
             for (var i = 0; i < btns.length; i++) {
@@ -84,10 +84,11 @@ document.addEventListener('DOMContentLoaded', function () {
                         countTimer.style.color = 'red';
                         countTimer.style.fontWeight = 'bold';
                         countTimer.style.fontSize = '6rem';
-                        countTimer.style.top = '10px';
+                        countTimer.style.top = '30px';
                     } else {
                         countTimer.style.color = 'white';
                         countTimer.style.fontWeight = '400';
+                        countTimer.style.top = '8%';
                     }
                     if (count <= 0) {
                         clearInterval(counter);
@@ -110,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     alert('YOU HAVE TO CHOOSE THE ANSWER!!!');
                 } else {
                     if (questionCounter + 4 < data.questions.length) {
-                        count = 10;
+                        count = 8;
                         console.log(select);
                         console.log(questionCounter);
                         questionCounter++;
@@ -137,6 +138,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             start.addEventListener('click', function () {
                 main.style.display = 'none';
+                main.classList.remove('finaleSite');
                 questionCounter = 0;
                 fadeIn();
                 count = 10;
@@ -209,7 +211,9 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             function finalSite() {
-                let result = document.createElement('h2');
+                main.classList.add('finaleSite');
+                let result = document.createElement('p');
+                result.classList.add('yourScore');
                 quiz.style.display = 'none';
                 prev.style.display = 'none';
                 next.style.display = 'none';
@@ -222,7 +226,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         score++;
                     }
                 }
-                result.innerText = 'Your score is ' + score + ' on' + select.length;
+                result.innerText = 'Your score is ' + score + ' on ' + select.length;
                 main.appendChild(result);
             }
 
