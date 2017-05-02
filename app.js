@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const intro = document.querySelector('.intro');
     const main = document.querySelector('.main');
     let questionCounter = 0;
-    let count = 10;
+    let count = 0;
     let select = [];
 
     fetch(url)
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 start.style.display = 'none';
                 fadeIn();
                 timer();
-                count = 9;
+                count = 30;
             });
 
             for (var i = 0; i < btns.length; i++) {
@@ -58,28 +58,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 tick();
             }
 
-            //           const setTime = setInterval(function() {
-            //               timer();
-            //               if (count < 0) {
-            //                clearInterval(setTime);
-            //                finalSite();   
-            //            }
-            //           }, 1000);
-            //        
-            //            function timer() {
-            //                const countTimer = document.querySelector('#timer');
-            //                countTimer.innerText = count--;
-            //                console.log(countTimer);
-            //                if (countTimer.innerText < 1) {
-            //                    countTimer.parentNode.removeChild(countTimer);
-            //                }
-            //            }
             function timer() {
                 const countTimer = document.createElement('h3');
                 countTimer.id = 'timer';
                 let counter = setInterval(function () {
                     count = count - 1;
-                    console.log(count);
+                    //                    console.log(count);
                     if (count < 6) {
                         countTimer.style.color = 'red';
                         countTimer.style.fontWeight = 'bold';
@@ -88,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     } else {
                         countTimer.style.color = 'white';
                         countTimer.style.fontWeight = '400';
-                        countTimer.style.top = '6%';
+                        countTimer.style.top = '30px';
                     }
                     if (count <= 0) {
                         clearInterval(counter);
@@ -110,17 +94,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (isNaN(select[questionCounter])) {
                     alert('YOU HAVE TO CHOOSE THE ANSWER!!!');
                 } else {
-                    if (questionCounter + 4 < data.questions.length) {
-                        count = 8;
+                    if ((questionCounter + 1) < data.questions.length) {
+                        count = 30;
                         console.log(select);
-                        console.log(questionCounter);
                         questionCounter++;
                         main.style.display = 'none';
                         fadeIn();
                         createQuestion(questionCounter);
                         createNext();
                     } else {
-                        finalSite();
+                        count = 0;
                     }
 
                 }
@@ -131,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 questionCounter--;
                 createQuestion(questionCounter);
                 createNext();
-                count = 10;
+                count = 30;
 
             });
 
@@ -140,8 +123,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 main.style.display = 'none';
                 main.classList.remove('finaleSite');
                 questionCounter = 0;
+                count = 30;
                 fadeIn();
-                count = 10;
+                timer();
                 quiz.style.display = 'block';
                 createQuestion(questionCounter);
                 createNext();
@@ -230,7 +214,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 main.appendChild(result);
             }
 
-            createQuestion(0);
+            createQuestion(questionCounter);
         })
         .catch(function () {
             console.log('error');
