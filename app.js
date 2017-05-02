@@ -17,9 +17,9 @@ document.addEventListener('DOMContentLoaded', function () {
         prev.style.display = 'none';
         start.style.display = 'none';
         fadeIn();
-
+        timer();
     });
-    
+
     for (var i = 0; i < btns.length; i++) {
         btns[i].addEventListener('mouseenter', function () {
             this.classList.add('active');
@@ -53,40 +53,59 @@ document.addEventListener('DOMContentLoaded', function () {
         tick();
     }
 
+
+    function timer() {
+        let count = 11;
+        const countTimer = document.createElement('h3');
+        let counter = setInterval(function () {
+            count = count - 1;
+            console.log(count);
+            if (count <= 0) {
+                clearInterval(counter);
+                countTimer.parentNode.removeChild(countTimer);
+                return;
+            }
+            countTimer.innerText = count;
+            main.appendChild(countTimer);
+        }, 1000);
+    }
+
+
     fetch(url)
         .then((resp) => resp.json())
         .then(function (data) {
 
             next.addEventListener('click', function () {
                 userChoice();
-                if (select[questionCounter].value =="") {
+                if (isNaN(select[questionCounter])) {
                     alert('YOU HAVE TO CHOOSE THE ANSWER!!!');
                 } else {
-                    if(questionCounter+4 < data.questions.length){
-                    console.log(select);
-                    console.log(questionCounter);
-                    questionCounter++;
-                    main.style.display = 'none';
-                    fadeIn();
-                    createQuestion(questionCounter);
-                    createNext();
-                    } else{
+                    if (questionCounter + 4 < data.questions.length) {
+                        removeTimer();
+                        console.log(select);
+                        console.log(questionCounter);
+                        questionCounter++;
+                        main.style.display = 'none';
+                        fadeIn();
+                        createQuestion(questionCounter);
+                        createNext();
+                    } else {
                         finalSite();
                     }
 
                 }
             });
-        
-        
-            prev.addEventListener('click', function(){
+
+
+            prev.addEventListener('click', function () {
                 questionCounter--;
                 createQuestion(questionCounter);
                 createNext();
-                
+
             });
-        
-            
-            start.addEventListener('click', function(){
+
+
+            start.addEventListener('click', function () {
                 main.style.display = 'none';
                 questionCounter = 0;
                 fadeIn();
@@ -97,9 +116,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 start.style.display = 'none';
                 next.style.display = 'block';
                 main.lastChild.style.display = 'none';
-                
-                
-            })
+
+
+            });
 
             function createQuestion(index) {
                 const questionElement = document.createElement('div');
@@ -117,10 +136,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 return questionElement;
             }
 
+            function removeTimer() {
+                let remove = document.querySelector('h3');
+                remove.style.display = 'none';
+            }
+
             function createNext() {
                 let exercise = document.querySelector('#exercise');
                 exercise.parentNode.removeChild(exercise);
                 prev.style.display = 'block';
+                timer();
 
             }
 
@@ -135,9 +160,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     li = document.createElement('li');
                     options = document.createElement('p');
                     input = document.createElement('input');
-                    input.type = "checkbox";
+                    input.type = "radio";
                     input.name = "answer";
-                    input.data= data.questions[index].answers[i].correct;
+                    input.data = data.questions[index].answers[i].correct;
                     options.innerText = data.questions[index].answers[i].answer;
                     li.appendChild(input);
                     li.appendChild(options);
@@ -151,25 +176,26 @@ document.addEventListener('DOMContentLoaded', function () {
                 for (var i = 0; i < allOptions.length; i++) {
                     if (allOptions[i].checked) {
                         select[questionCounter] = +allOptions[i].data;
-                        
+
                     }
                 }
             }
-            function finalSite(){
+
+            function finalSite() {
                 let result = document.createElement('h2');
                 quiz.style.display = 'none';
                 prev.style.display = 'none';
                 next.style.display = 'none';
                 start.style.display = 'block';
-                
+
                 let score = 0;
-                 for (var i = 0; i < select.length; i++) {
-                    
+                for (var i = 0; i < select.length; i++) {
+
                     if (select[i] == 1) {
-                     score++;
+                        score++;
                     }
                 }
-                result.innerText = 'Your score is '+score+' on'  +select.length;
+                result.innerText = 'Your score is ' + score + ' on' + select.length;
                 main.appendChild(result);
             }
 

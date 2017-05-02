@@ -70,11 +70,19 @@ body {
     h1 {
         font-size: 3rem;
         padding-top: 30px;
+        text-align: left;
     }
     h2 {
         font-family: 'Love Ya Like A Sister', cursive;
         padding-top: 50px;
         font-size: 1.5rem;
+    }
+    h3 {
+        position: absolute;
+        right: 100px;
+        top: 120px;
+        font-size: 4rem;
+        font-family: 'Love Ya Like A Sister', cursive;
     }
 }
 
