@@ -84,11 +84,11 @@ document.addEventListener('DOMContentLoaded', function () {
                         countTimer.style.color = 'red';
                         countTimer.style.fontWeight = 'bold';
                         countTimer.style.fontSize = '6rem';
-                        countTimer.style.top = '30px';
+                        countTimer.style.top = '25px';
                     } else {
                         countTimer.style.color = 'white';
                         countTimer.style.fontWeight = '400';
-                        countTimer.style.top = '8%';
+                        countTimer.style.top = '6%';
                     }
                     if (count <= 0) {
                         clearInterval(counter);

@@ -7,7 +7,7 @@
     $breakpoint: 420px;
     .container {
         max-width: 800px;
-        margin: 20px auto;
+        margin: 0 auto;
         width: 100%;
         background-color: rgba(0, 0, 0, 0.9);
         border: 20px solid rgb(26, 26, 26);
@@ -36,7 +36,7 @@
         background-image: url(../images/2.jpg);
         background-repeat: no-repeat;
         background-size: cover;
-        height: 100vh;
+        height: 100%;
         width: 100vw;
     }
     
@@ -44,7 +44,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        height: 500px;
+        height: 94vh;
         cursor: pointer;
         &:hover {
             background-color: rgba(0, 0, 0, 1);
@@ -66,10 +66,10 @@
     .main {
         position: relative;
         display: none;
-        height: 500px;
+        min-height: 600px;
         color: rgb(255, 255, 255);
         h1 {
-            font-size: 2rem;
+            font-size: 1.5rem;
             padding-top: 10px;
             text-align: center;
             @media (min-width: $breakpoint) {
