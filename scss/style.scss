@@ -64,6 +64,7 @@ body {
 }
 
 .main {
+    position: relative;
     display: none;
     height: 500px;
     color: rgb(255, 255, 255);
@@ -77,11 +78,11 @@ body {
         padding-top: 50px;
         font-size: 1.5rem;
     }
-    h3 {
+    #timer {
         position: absolute;
-        right: 100px;
-        top: 120px;
-        font-size: 4rem;
+        right: 70px;
+        top: 20px;
+        font-size: 5rem;
         font-family: 'Love Ya Like A Sister', cursive;
     }
 }

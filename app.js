@@ -9,71 +9,100 @@ document.addEventListener('DOMContentLoaded', function () {
     const intro = document.querySelector('.intro');
     const main = document.querySelector('.main');
     let questionCounter = 0;
+    let count = 10;
     let select = [];
-
-
-    intro.addEventListener('click', function () {
-        intro.style.display = 'none';
-        prev.style.display = 'none';
-        start.style.display = 'none';
-        fadeIn();
-        timer();
-    });
-
-    for (var i = 0; i < btns.length; i++) {
-        btns[i].addEventListener('mouseenter', function () {
-            this.classList.add('active');
-        });
-
-        btns[i].addEventListener('mouseleave', function () {
-            this.classList.remove('active');
-        });
-    }
-
-    function fadeIn() {
-        const fadeEl = document.createElement('div');
-        fadeEl.style.display = 'flex';
-        fadeEl.style.opacity = 0;
-        fadeEl.classList.add('fullCount');
-        fadeEl.innerHTML = '<h1>Question: ' + (questionCounter + 1) + '</h1>';
-
-
-        var tick = function () {
-            fadeEl.style.opacity = +fadeEl.style.opacity + 0.01;
-
-
-            if (+fadeEl.style.opacity < 1) {
-                (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16)
-            } else {
-                fadeEl.style.display = 'none';
-                main.style.display = 'block';
-            }
-        };
-        container.appendChild(fadeEl);
-        tick();
-    }
-
-
-    function timer() {
-        let count = 11;
-        const countTimer = document.createElement('h3');
-        let counter = setInterval(function () {
-            count = count - 1;
-            console.log(count);
-            if (count <= 0) {
-                clearInterval(counter);
-                countTimer.parentNode.removeChild(countTimer);
-                return;
-            }
-            countTimer.innerText = count;
-            main.appendChild(countTimer);
-        }, 1000);
-    }
-
 
     fetch(url)
         .then((resp) => resp.json())
         .then(function (data) {
+
+            intro.addEventListener('click', function () {
+                intro.style.display = 'none';
+                prev.style.display = 'none';
+                start.style.display = 'none';
+                fadeIn();
+                timer();
+                count = 10;
+            });
+
+            for (var i = 0; i < btns.length; i++) {
+                btns[i].addEventListener('mouseenter', function () {
+                    this.classList.add('active');
+                });
+
+                btns[i].addEventListener('mouseleave', function () {
+                    this.classList.remove('active');
+                });
+            }
+
+            function fadeIn() {
+                const fadeEl = document.createElement('div');
+                fadeEl.style.display = 'flex';
+                fadeEl.style.opacity = 0;
+                fadeEl.classList.add('fullCount');
+                fadeEl.innerHTML = '<h1>Question: ' + (questionCounter + 1) + '</h1>';
+
+
+                var tick = function () {
+                    fadeEl.style.opacity = +fadeEl.style.opacity + 0.01;
+
+
+                    if (+fadeEl.style.opacity < 1) {
+                        (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16)
+                    } else {
+                        fadeEl.style.display = 'none';
+                        main.style.display = 'block';
+                    }
+                };
+                container.appendChild(fadeEl);
+                tick();
+            }
+
+            //           const setTime = setInterval(function() {
+            //               timer();
+            //               if (count < 0) {
+            //                clearInterval(setTime);
+            //                finalSite();   
+            //            }
+            //           }, 1000);
+            //        
+            //            function timer() {
+            //                const countTimer = document.querySelector('#timer');
+            //                countTimer.innerText = count--;
+            //                console.log(countTimer);
+            //                if (countTimer.innerText < 1) {
+            //                    countTimer.parentNode.removeChild(countTimer);
+            //                }
+            //            }
+            function timer() {
+                const countTimer = document.createElement('h3');
+                countTimer.id = 'timer';
+                let counter = setInterval(function () {
+                    count = count - 1;
+                    console.log(count);
+                    if (count < 6) {
+                        countTimer.style.color = 'red';
+                        countTimer.style.fontWeight = 'bold';
+                        countTimer.style.fontSize = '6rem';
+                        countTimer.style.top = '10px';
+                    } else {
+                        countTimer.style.color = 'white';
+                        countTimer.style.fontWeight = '400';
+                    }
+                    if (count <= 0) {
+                        clearInterval(counter);
+                        countTimer.parentNode.removeChild(countTimer);
+                        finalSite();
+                        return;
+                    }
+                    countTimer.innerText = count;
+                    main.appendChild(countTimer);
+                }, 1000);
+            }
+
+
+
+
 
             next.addEventListener('click', function () {
                 userChoice();
@@ -81,7 +110,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     alert('YOU HAVE TO CHOOSE THE ANSWER!!!');
                 } else {
                     if (questionCounter + 4 < data.questions.length) {
-                        removeTimer();
+                        count = 10;
                         console.log(select);
                         console.log(questionCounter);
                         questionCounter++;
@@ -101,6 +130,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 questionCounter--;
                 createQuestion(questionCounter);
                 createNext();
+                count = 10;
 
             });
 
@@ -109,6 +139,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 main.style.display = 'none';
                 questionCounter = 0;
                 fadeIn();
+                count = 10;
                 quiz.style.display = 'block';
                 createQuestion(questionCounter);
                 createNext();
@@ -136,16 +167,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 return questionElement;
             }
 
-            function removeTimer() {
-                let remove = document.querySelector('h3');
-                remove.style.display = 'none';
-            }
 
             function createNext() {
                 let exercise = document.querySelector('#exercise');
                 exercise.parentNode.removeChild(exercise);
                 prev.style.display = 'block';
-                timer();
+
 
             }
 
