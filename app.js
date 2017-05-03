@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 start.style.display = 'none';
                 fadeIn();
                 timer();
-                count = 30;
+                count = 10;
             });
 
             for (var i = 0; i < btns.length; i++) {
@@ -85,17 +85,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 }, 1000);
             }
 
-
-
-
-
             next.addEventListener('click', function () {
                 userChoice();
                 if (isNaN(select[questionCounter])) {
                     alert('YOU HAVE TO CHOOSE THE ANSWER!!!');
                 } else {
                     if ((questionCounter + 1) < data.questions.length) {
-                        count = 30;
+                        count = 10;
                         console.log(select);
                         questionCounter++;
                         main.style.display = 'none';
@@ -133,7 +129,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 start.style.display = 'none';
                 next.style.display = 'block';
                 main.lastChild.style.display = 'none';
-
 
             });
 
@@ -193,10 +188,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 }
             }
+        
+        let result = document.createElement('p');
 
             function finalSite() {
                 main.classList.add('finaleSite');
-                let result = document.createElement('p');
+                let img = document.createElement('img');
                 result.classList.add('yourScore');
                 quiz.style.display = 'none';
                 prev.style.display = 'none';
@@ -205,12 +202,28 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 let score = 0;
                 for (var i = 0; i < select.length; i++) {
-
-                    if (select[i] == 1) {
+                        if (select[i] == 1) {
                         score++;
-                    }
+                        }
                 }
-                result.innerText = 'Your score is ' + score + ' on ' + select.length;
+                
+                if (score <= 1){
+                    result.innerText = 'VERY BAD!!! Your score is ' + score + ' out of ' + data.questions.length;
+                    img.src = "images/sad.png";
+                } else if(score > 1 && score <= 4 ){
+                     result.innerText = 'YOU NEED MORE PRACTICE!!! Your score is ' + score + ' out of ' + data.questions.length;
+                    img.src = "images/sad2.png";
+                } else if(score > 4 && score <= 6){
+                     result.innerText = 'NOT BAD!!! Your score is ' + score + ' out of ' + data.questions.length;  
+                    img.src = "images/slightly-smiling-face.png";
+                } else if(score > 6 && score <= 8 ){
+                     result.innerText = 'VERY WELL!!! Your score is ' + score + ' out of ' + data.questions.length;
+                    img.src = "images/smiled.png";
+                } else {
+                     result.innerText = 'YOU ARE THE BEST!!! Your score is ' + score + ' out of ' + data.questions.length;
+                    img.src = "images/happy.png";
+                }   
+                main.appendChild(img);
                 main.appendChild(result);
             }
 
