@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 start.style.display = 'none';
                 fadeIn();
                 timer();
-                count = 10;
+                count = 31;
             });
 
             for (var i = 0; i < btns.length; i++) {
@@ -36,8 +36,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
             }
 
+            const fadeEl = document.createElement('div');
+            container.appendChild(fadeEl);
+
             function fadeIn() {
-                const fadeEl = document.createElement('div');
                 fadeEl.style.display = 'flex';
                 fadeEl.style.opacity = 0;
                 fadeEl.classList.add('fullCount');
@@ -55,7 +57,6 @@ document.addEventListener('DOMContentLoaded', function () {
                         main.style.display = 'block';
                     }
                 };
-                container.appendChild(fadeEl);
                 tick();
             }
 
@@ -64,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 countTimer.id = 'timer';
                 let counter = setInterval(function () {
                     count = count - 1;
-                    //                    console.log(count);
+                   
                     if (count < 6) {
                         countTimer.style.color = 'red';
                         countTimer.style.fontWeight = 'bold';
@@ -92,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     alert('YOU HAVE TO CHOOSE THE ANSWER!!!');
                 } else {
                     if ((questionCounter + 1) < data.questions.length) {
-                        count = 10;
+                        count = 31;
                         console.log(select);
                         questionCounter++;
                         main.style.display = 'none';
@@ -111,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 questionCounter--;
                 createQuestion(questionCounter);
                 createNext();
-                count = 30;
+                count = 31;
 
             });
 
@@ -120,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 main.style.display = 'none';
                 main.classList.remove('finaleSite');
                 questionCounter = 0;
-                count = 10;
+                count = 31;
                 fadeIn();
                 timer();
                 quiz.style.display = 'block';
