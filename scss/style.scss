@@ -133,7 +133,7 @@
         left: 25%;
         @media (min-width: $breakpoint) {
             left: 39%;
-            bottom: 10px;
+            bottom: 5px;
         }
     }
     
@@ -183,7 +183,7 @@
                 top: 10px;
             }
             p {
-                padding: 5px;
+                padding: 5px 15px 5px 5px;
                 font-size: 1rem;
                 font-family: 'Love Ya Like A Sister', cursive;
                 @media (min-width: $breakpoint) {
@@ -207,6 +207,10 @@
         background: rgb(0, 0, 0);
         h1 {
             text-align: center;
+            @media (min-width: $breakpoint) {
+                padding-top: 20px;
+                font-size: 2rem;
+            }
         }
         img {
             height: 270px;
@@ -223,7 +227,7 @@
             margin: 0 20px;
             @media (min-width: $breakpoint) {
                 margin: 0 50px;
-                font-size: 2.5rem;
+                font-size: 2rem;
             }
         }
     }
