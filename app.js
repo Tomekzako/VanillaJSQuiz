@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let questionCounter = 0;
     let count = 0;
     let select = [];
+    let score = 0;
 
     fetch(url)
         .then((resp) => resp.json())
@@ -119,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 main.style.display = 'none';
                 main.classList.remove('finaleSite');
                 questionCounter = 0;
-                count = 30;
+                count = 10;
                 fadeIn();
                 timer();
                 quiz.style.display = 'block';
@@ -128,7 +129,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 prev.style.display = 'none';
                 start.style.display = 'none';
                 next.style.display = 'block';
-                main.lastChild.style.display = 'none';
+                result.style.display = 'none';
+                img.src = "";
+                score = 0;
 
             });
 
@@ -188,43 +191,43 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 }
             }
-        
-        let result = document.createElement('p');
+
+            let result = document.createElement('p');
+            let img = document.createElement('img');
+            main.appendChild(img);
+            main.appendChild(result);
 
             function finalSite() {
                 main.classList.add('finaleSite');
-                let img = document.createElement('img');
+                result.style.display = 'block';
                 result.classList.add('yourScore');
                 quiz.style.display = 'none';
                 prev.style.display = 'none';
                 next.style.display = 'none';
                 start.style.display = 'block';
 
-                let score = 0;
                 for (var i = 0; i < select.length; i++) {
-                        if (select[i] == 1) {
+                    if (select[i] == 1) {
                         score++;
-                        }
+                    }
                 }
-                
-                if (score <= 1){
+
+                if (score <= 1) {
                     result.innerText = 'VERY BAD!!! Your score is ' + score + ' out of ' + data.questions.length;
                     img.src = "images/sad.png";
-                } else if(score > 1 && score <= 4 ){
-                     result.innerText = 'YOU NEED MORE PRACTICE!!! Your score is ' + score + ' out of ' + data.questions.length;
+                } else if (score > 1 && score <= 4) {
+                    result.innerText = 'YOU NEED MORE PRACTICE!!! Your score is ' + score + ' out of ' + data.questions.length;
                     img.src = "images/sad2.png";
-                } else if(score > 4 && score <= 6){
-                     result.innerText = 'NOT BAD!!! Your score is ' + score + ' out of ' + data.questions.length;  
+                } else if (score > 4 && score <= 6) {
+                    result.innerText = 'NOT BAD!!! Your score is ' + score + ' out of ' + data.questions.length;
                     img.src = "images/slightly-smiling-face.png";
-                } else if(score > 6 && score <= 8 ){
-                     result.innerText = 'VERY WELL!!! Your score is ' + score + ' out of ' + data.questions.length;
+                } else if (score > 6 && score <= 8) {
+                    result.innerText = 'VERY WELL!!! Your score is ' + score + ' out of ' + data.questions.length;
                     img.src = "images/smiled.png";
                 } else {
-                     result.innerText = 'YOU ARE THE BEST!!! Your score is ' + score + ' out of ' + data.questions.length;
+                    result.innerText = 'YOU ARE THE BEST!!! Your score is ' + score + ' out of ' + data.questions.length;
                     img.src = "images/happy.png";
-                }   
-                main.appendChild(img);
-                main.appendChild(result);
+                }
             }
 
             createQuestion(questionCounter);
