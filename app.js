@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 countTimer.id = 'timer';
                 let counter = setInterval(function () {
                     count = count - 1;
-                   
+
                     if (count < 6) {
                         countTimer.style.color = 'red';
                         countTimer.style.fontWeight = 'bold';
@@ -161,7 +161,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
             }
 
-
             function createAnswer(index) {
                 let ul = document.createElement('ul');
                 let li;
@@ -171,6 +170,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 for (var i = 0; i < data.questions[index].answers.length; i++) {
                     li = document.createElement('li');
                     options = document.createElement('p');
+                    options.className = 'getLi';
                     input = document.createElement('input');
                     input.type = "radio";
                     input.name = "answer";
@@ -181,7 +181,16 @@ document.addEventListener('DOMContentLoaded', function () {
                     ul.appendChild(li);
                 }
                 return ul;
+
             }
+            document.querySelector('body').addEventListener('click', function (event) {
+                if (event.target.className.toLowerCase() === 'getli') {
+                    let getLi = event.target;
+                    getLi.previousElementSibling.checked = true;
+                }
+
+            });
+
 
             function userChoice() {
                 let allOptions = document.getElementsByName('answer');
