@@ -4,6 +4,14 @@
         box-sizing: border-box;
     }
     
+    body {
+        background-image: url(../images/2.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 100%;
+        width: 100vw;
+    }
+    
     $breakpoint: 420px;
     .container {
         max-width: 800px;
@@ -15,6 +23,11 @@
         @media (min-width: $breakpoint) {
             margin: 50px auto;
         }
+        h1 {
+            font-family: 'Revalia', cursive;
+            color: rgb(255, 255, 255);
+            text-align: center;
+        }
     }
     
     .row {
@@ -24,20 +37,6 @@
             content: '';
             clear: both;
         }
-    }
-    
-    h1 {
-        font-family: 'Revalia', cursive;
-        color: rgb(255, 255, 255);
-        text-align: center;
-    }
-    
-    body {
-        background-image: url(../images/2.jpg);
-        background-repeat: no-repeat;
-        background-size: cover;
-        height: 100%;
-        width: 100vw;
     }
     
     .intro {
@@ -84,7 +83,7 @@
         }
         h2 {
             font-family: 'Love Ya Like A Sister', cursive;
-            padding-top: 80px;
+            padding-top: 85px;
             font-size: 1.5rem;
             text-align: center;
             @media (min-width: $breakpoint) {

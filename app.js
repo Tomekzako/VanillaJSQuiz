@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 start.style.display = 'none';
                 fadeIn();
                 timer();
-                count = 31;
+                count = 36;
             });
 
             for (var i = 0; i < btns.length; i++) {
@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 let counter = setInterval(function () {
                     count = count - 1;
 
-                    if (count < 6) {
+                    if (count < 10) {
                         countTimer.style.color = 'red';
                         countTimer.style.fontWeight = 'bold';
                         countTimer.style.fontSize = '6rem';
@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     alert('YOU HAVE TO CHOOSE THE ANSWER!!!');
                 } else {
                     if ((questionCounter + 1) < data.questions.length) {
-                        count = 31;
+                        count = 36;
                         console.log(select);
                         questionCounter++;
                         main.style.display = 'none';
@@ -112,7 +112,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 questionCounter--;
                 createQuestion(questionCounter);
                 createNext();
-                count = 31;
+                count = 11;
+                main.style.display = 'none';
+                fadeIn();
 
             });
 
@@ -121,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 main.style.display = 'none';
                 main.classList.remove('finaleSite');
                 questionCounter = 0;
-                count = 31;
+                count = 36;
                 fadeIn();
                 timer();
                 quiz.style.display = 'block';
